@@ -1,0 +1,30 @@
+@font-face {
+  font-family: FounderGro;
+  src: url("../src/assets/fonts/FoundersGrotesk-Semibold.ttf");
+}
+
+@font-face {
+  font-family: NeueMon;
+  src: url("../src/assets/fonts/NeueMontreal-Regular.ttf");
+}
+
+@import "tailwindcss";
+
+@theme {
+  --font-founder: FounderGro, "sans-serif";
+  --font-neue: NeueMon, "sans-serif";
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  min-height: 100%;
+  height: auto;
+  width: 100%;
+  background: #fafafa;
+  color: #1a1a1a;
+  overflow-x: hidden;
+  font-size: 1rem;
+}
