@@ -21,10 +21,10 @@ const Marque = () => {
     <section className="marque--section bg-[#004d43] text-[#FAFAFA] rounded-t-xl overflow-hidden">
       <div className="marque-container py-20">
         <div ref={trackRef} className="marquee-track flex w-max border-y-2 border-[#FAFAFA]">
-          <h1 className="marquee-text uppercase font-founder text-[13rem] pb-5 leading-[155px] whitespace-nowrap">
+          <h1 className="marquee-text uppercase font-founder text-[20rem] pb-7 leading-[245px] whitespace-nowrap">
             we are ochi we are ochi&nbsp;
           </h1>
-          <h1 className="marquee-text uppercase font-founder text-[13rem] pb-5 leading-[155px] whitespace-nowrap">
+          <h1 className="marquee-text uppercase font-founder text-[20rem] pb-7 leading-[245px] whitespace-nowrap">
             we are ochi we are ochi&nbsp;
           </h1>
         </div>
