@@ -4,32 +4,60 @@ import profileImg from '../assets/image02.jpg';
 import { MoveUpRight } from 'lucide-react';
 
 const About = () => {
-  const itemsRef = useRef([]);
+  const headingRefs = useRef([]);
+  const socialRefs = useRef([]);
 
-  useEffect(() => {
-    itemsRef.current.forEach((item) => {
-      const black = item.querySelector('.underline-black');
-      const red = item.querySelector('.underline-red');
+  const setupUnderlineAnim = (el) => {
+    if (!el) return;
 
-      const tl = gsap.timeline({ paused: true });
+    const black = el.querySelector('.underline-black');
+    const red = el.querySelector('.underline-red');
 
-      tl.to(black, {
-        x: '100%',
+    if (!black || !red) return;
+
+    const tl = gsap.timeline({ paused: true });
+
+    tl.to(black, {
+      x: '100%',
+      duration: 0.3,
+      ease: 'power2.out',
+    }).to(
+      red,
+      {
+        x: '0%',
         duration: 0.3,
         ease: 'power2.out',
-      }).to(
-        red,
-        {
-          x: '0%',
-          duration: 0.3,
-          ease: 'power2.out',
-        },
-        '+=0.05'
-      );
+      },
+      '+=0.05'
+    );
 
-      item.addEventListener('mouseenter', () => tl.play());
-      item.addEventListener('mouseleave', () => tl.reverse());
+    el.addEventListener('mouseenter', () => tl.play());
+    el.addEventListener('mouseleave', () => tl.reverse());
+  };
+
+  useEffect(() => {
+    headingRefs.current.forEach(setupUnderlineAnim);
+    socialRefs.current.forEach(setupUnderlineAnim);
+
+    const btn = document.querySelector(".btn");
+
+    const tl = gsap.timeline({ paused: true });
+
+    tl.set(".profile-img", {
+      scale: 1
     });
+
+    tl.to(".profile-img", {
+      scale: .97,
+      duration: .25,
+      ease: "none"
+    });
+
+    const enter = () => tl.play();
+    const leave = () => tl.reverse();
+
+    btn.addEventListener("mouseenter", enter);
+    btn.addEventListener("mouseleave", leave);
   }, []);
 
   return (
@@ -40,16 +68,16 @@ const About = () => {
           digital experience that{' '}
           <span className="inline-flex gap-2.5 flex-wrap">
             <span
-              ref={(el) => (itemsRef.current[0] = el)}
+              ref={(el) => (headingRefs.current[0] = el)}
               className="relative pb-1.5 inline-block cursor-pointer w-max overflow-hidden"
             >
               dive funding, sales
               <span className="underline-black absolute left-0 bottom-0 w-full h-0.5 bg-black"></span>
               <span className="underline-red absolute left-0 bottom-0 w-full h-0.5 bg-black -translate-x-full"></span>
-            </span>{' '}
-            and{' '}
+            </span>
+            {' '}and{' '}
             <span
-              ref={(el) => (itemsRef.current[1] = el)}
+              ref={(el) => (headingRefs.current[1] = el)}
               className="relative pb-1.5 inline-block cursor-pointer w-max overflow-hidden"
             >
               market leadership
@@ -81,7 +109,7 @@ const About = () => {
                   (item, index) => (
                     <li
                       key={index}
-                      ref={(el) => (itemsRef.current[index] = el)}
+                      ref={(el) => (socialRefs.current[index] = el)}
                       className="relative w-max cursor-pointer overflow-hidden"
                     >
                       <span className="capitalize">{item}</span>
@@ -102,7 +130,7 @@ const About = () => {
             <h5 className="text-[31px]">How we can help:</h5>
             <a
               href="#"
-              className="group flex items-center uppercase bg-black text-white py-3 px-5 rounded-full w-max"
+              className="group flex items-center uppercase bg-black text-white py-3 px-5 rounded-full w-max btn"
             >
               read more
               <span className="ml-6 relative w-10 h-10 flex items-center justify-center">
@@ -119,7 +147,7 @@ const About = () => {
             <img
               src={profileImg}
               alt="profile-img"
-              className="rounded-xl w-3/4"
+              className="rounded-xl w-3/4 profile-img"
             />
           </div>
         </div>

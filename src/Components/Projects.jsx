@@ -13,34 +13,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 
 const Projects = () => {
-  const btnRef = useRef(null);
-
-  useEffect(() => {
-    const btn = btnRef.current;
-    const tl = gsap.timeline({ paused: true });
-
-    // initial state
-    gsap.set(".circle", { scale: 0.3 });
-    gsap.set(".arrow", { opacity: 0 });
-
-    tl.to(".circle", {
-      scale: 1,
-      duration: .3,
-      ease: "power3.out",
-    }).to(".arrow", {
-      opacity: 1,
-      duration: .2,
-      ease: "power2.out",
-    },
-      "-=0.15"
-    );
-
-    const enter = () => tl.play();
-    const leave = () => tl.reverse();
-
-    btn.addEventListener("mouseenter", enter);
-    btn.addEventListener("mouseleave", leave);
-  }, []);
+  const cardsRef = useRef([]);
 
   const projectData = [
     {
@@ -137,6 +110,52 @@ const Projects = () => {
       ]
     },
   ];
+
+  const chunkProjects = (arr, size) => {
+    const result = [];
+    for (let i = 0; i < arr.length; i += size) {
+      result.push(arr.slice(i, i + size));
+    }
+    return result;
+  };
+
+  const projectRows = chunkProjects(projectData, 2);
+
+  useEffect(() => {
+    cardsRef.current.forEach((card) => {
+      if (!card) return;
+
+      const heading = card.querySelector(".hover-heading");
+      const letters = heading.querySelectorAll("span");
+
+      // initial state (hidden)
+      gsap.set(heading, { opacity: 1 });
+      gsap.set(letters, {
+        y: 90,
+        opacity: 0,
+      });
+
+      const tl = gsap.timeline({ paused: true });
+
+      tl.to(heading, {
+        opacity: 1,
+        duration: 0.01,
+      }).to(letters, {
+        y: 0,
+        opacity: 1,
+        stagger: 0.05,
+        duration: 0.6,
+        ease: "power3.out",
+      });
+
+      const enter = () => tl.play();
+      const leave = () => tl.reverse();
+
+      card.addEventListener("mouseenter", enter);
+      card.addEventListener("mouseleave", leave);
+    });
+  }, []);
+
   return (
     <section className="project--section">
       <div className="project-container font-neue">
@@ -144,41 +163,61 @@ const Projects = () => {
           Featured projects
         </h1>
 
-        <div className="project-infos grid grid-cols-1 md:grid-cols-2 gap-8 py-10 px-5 lg:px-12">
+        <div className="project-infos py-12 px-5 lg:px-12 space-y-12">
           {
-            projectData.map((item) => {
-              return (
-                <div key={ item.id } className="flex flex-col gap-3">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 bg-black rounded-full"></span>
-                    <h5 className="uppercase text-md">{ item.heading }</h5>
-                  </div>
-                  <img className="rounded-xl hover:scale-[.97] transition-all duration-300 cursor-pointer" src={ item.img } alt="project-img" />
-                  <div className="flex flex-wrap items-center gap-3">
-                    {
-                      item.title.map((item, index) => {
-                        return (
-                          <a href="#" key={ index } className="uppercase text-md border rounded-full px-3 py-1">
-                            { item }
-                          </a>
-                        )
-                      })
-                    }
-                  </div>
-                </div>
-              )
-            })
+            projectRows.map((row, rowIndex) => (
+              <div key={rowIndex} className="relative grid grid-cols-1 md:grid-cols-2 gap-8 rounded-3xl p-6 bg-white">
+                {
+                  row.map((item) => (
+                    <div ref={(el) => (cardsRef.current[item.id] = el)} key={item.id} className="group flex flex-col gap-4 overflow-hidden">
+                      {/* label */}
+                      <div className="flex items-center gap-2 z-10">
+                        <span className="w-2.5 h-2.5 bg-black rounded-full"></span>
+                        <h5 className="uppercase text-xs tracking-widest">
+                          {item.heading}
+                        </h5>
+                      </div>
+
+                      {/* image wrapper */}
+                      <div className="overflow-hidden rounded-2xl">
+                        <img src={item.img} alt="project" className="rounded-2xl transition-transform duration-700 ease-out group-hover:scale-[0.95] cursor-pointer" />
+                      </div>
+
+                      {/* tags */}
+                      <div className="flex flex-wrap gap-3 z-10">
+                        {item.title.map((tag, index) => (
+                          <span key={index} className="uppercase text-xs border rounded-full px-4 py-1.5">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* hover heading */}
+                      <h1 className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[4rem] lg:text-[4.5rem] uppercase whitespace-nowrap text-[#CdEA68] font-extrabold tracking-tight opacity-0 z-20 hover-heading">
+                        {
+                          item.heading.split("").map((char, index) => (
+                            <span key={index} className="inline-block">
+                              {char === " " ? "\u00A0" : char}
+                            </span>
+                          ))
+                        }
+                      </h1>
+                    </div>
+                  ))
+                }
+              </div>
+            ))
           }
         </div>
 
         <div className="project-btn flex justify-center py-7">
-          <a href="#" className="w-max flex items-center gap-3 bg-black text-white px-7 py-4 rounded-full" ref={btnRef}>
+          <a href="#" className="w-max flex items-center gap-3 bg-black text-white px-7 py-4 rounded-full group">
             <h5 className="uppercase text-lg">
               view all case studies
             </h5>
 
-            <span className="circle w-10 h-10 rounded-full bg-white relative">
-              <MoveUpRight size={20} className="arrow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[#1A1A1A]" />
+            <span className="circle w-10 h-10 rounded-full bg-white relative transition-transform duration-300 ease-out scale-[.3] group-hover:scale-100">
+              <MoveUpRight size={20} className="arrow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[#1A1A1A] transition-opacity duration-200 ease-out opacity-0 group-hover:opacity-100" />
             </span>
           </a>
         </div>
