@@ -1,4 +1,5 @@
 import About from "./Components/About"
+import Client from "./Components/Client"
 import EyePlay from "./Components/EyePlay"
 import LandingPage from "./Components/LandingPage"
 import Marque from "./Components/Marque"
@@ -14,6 +15,7 @@ const App = () => {
       <About />
       <EyePlay />
       <Projects />
+      <Client />
     </div>
   )
 }

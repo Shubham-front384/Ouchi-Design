@@ -131,7 +131,7 @@ const Projects = () => {
       // initial state (hidden)
       gsap.set(heading, { opacity: 1 });
       gsap.set(letters, {
-        y: 90,
+        y: 100,
         opacity: 0,
       });
 
@@ -179,8 +179,8 @@ const Projects = () => {
                       </div>
 
                       {/* image wrapper */}
-                      <div className="overflow-hidden rounded-2xl">
-                        <img src={item.img} alt="project" className="rounded-2xl transition-transform duration-700 ease-out group-hover:scale-[0.95] cursor-pointer" />
+                      <div className="overflow-hidden rounded-2xl flex justify-center transition-all duration-700 ease-out group-hover:m-4">
+                        <img src={item.img} alt="project" className="w-full h-full rounded-2xl transition-transform duration-700 ease-out group-hover:scale-[1.05] cursor-pointer" />
                       </div>
 
                       {/* tags */}
@@ -193,7 +193,7 @@ const Projects = () => {
                       </div>
 
                       {/* hover heading */}
-                      <h1 className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[4rem] lg:text-[4.5rem] uppercase whitespace-nowrap text-[#CdEA68] font-extrabold tracking-tight opacity-0 z-20 hover-heading">
+                      <h1 className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[4rem] md:text-[6rem] lg:text-[8rem] uppercase whitespace-nowrap text-[#CdEA68] font-extrabold tracking-tight opacity-0 z-20 hover-heading font-founder">
                         {
                           item.heading.split("").map((char, index) => (
                             <span key={index} className="inline-block">
@@ -210,9 +210,9 @@ const Projects = () => {
           }
         </div>
 
-        <div className="project-btn flex justify-center py-7">
+        <div className="project-btn flex justify-center pt-7 pb-20">
           <a href="#" className="w-max flex items-center gap-3 bg-black text-white px-7 py-4 rounded-full group">
-            <h5 className="uppercase text-lg">
+            <h5 className="uppercase text-sm">
               view all case studies
             </h5>
 
