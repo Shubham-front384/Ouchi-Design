@@ -34,13 +34,13 @@ const EyePlay = () => {
           <div className="play-eye w-[55%] h-[35%] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-around items-center">
             <div className="left-eye w-[40%] h-full rounded-full bg-white relative">
               <div className="w-[70%] h-[70%] rounded-full bg-black relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" style={{ transform: `rotate(${angle}deg)` }}>
-                <div className='w-[15%] h-[15%] bg-white rounded-full absolute top-1/2 left-0'></div>
+                <div className='w-[15%] h-[15%] bg-white rounded-full absolute top-0 left-1/2'></div>
               </div>
               <h5 className='uppercase text-white whitespace-nowrap absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[.65rem] md:text-sm'>play now</h5>
             </div>
             <div className="right-eye w-[40%] h-full rounded-full bg-white relative">
               <div className="w-[70%] h-[70%] rounded-full bg-black relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" style={{ transform: `rotate(${angle}deg)` }}>
-                <div className='w-[15%] h-[15%] bg-white rounded-full absolute top-1/2 left-0'></div>
+                <div className='w-[15%] h-[15%] bg-white rounded-full absolute top-0 left-1/2'></div>
               </div>
               <h5 className='uppercase text-white whitespace-nowrap absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[.65rem] md:text-sm'>play now</h5>
             </div>

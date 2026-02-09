@@ -147,7 +147,7 @@ const About = () => {
             <img
               src={profileImg}
               alt="profile-img"
-              className="rounded-xl w-3/4 profile-img"
+              className="rounded-xl md:w-3/4 profile-img"
             />
           </div>
         </div>

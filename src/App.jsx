@@ -5,6 +5,7 @@ import LandingPage from "./Components/LandingPage"
 import Marque from "./Components/Marque"
 import Navbar from "./Components/Navbar"
 import Projects from "./Components/Projects"
+import StartProject from "./Components/StartProject"
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
       <EyePlay />
       <Projects />
       <Client />
+      <StartProject />
     </div>
   )
 }

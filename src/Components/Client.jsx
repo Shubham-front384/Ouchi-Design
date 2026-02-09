@@ -1,5 +1,8 @@
 import { useEffect, useRef } from 'react';
 import img1 from '../assets/image14.png';
+import logo1 from '../assets/logo01.svg';
+import logo2 from '../assets/logo02.svg';
+import logo3 from '../assets/logo03.png';
 import gsap from 'gsap';
 
 const Client = () => {
@@ -13,6 +16,12 @@ const Client = () => {
     { id: 7, t1: 'orderlion', t2: 'stefan strohmer', read: 'read' },
     { id: 8, t1: 'black book', t2: 'jaci smith', read: 'read' },
     { id: 9, t1: 'trawa energy', t2: 'david budde', read: 'read' },
+  ];
+
+  const cardInfo = [
+    { id: 1, img: logo1, p: "© 2019-2025" },
+    { id: 2, img: logo2, p: "rating 5.0 on clutch" },
+    { id: 3, img: logo3, p: "business bootcamp alumni" },
   ];
 
   const underlineRefs = useRef([]);
@@ -128,6 +137,19 @@ const Client = () => {
             </li>
           ))}
         </ul>
+
+        <div className="client-cards px-5 pb-8 grid grid-rows-[300px_300px_300px] md:grid-cols-2 md:grid-rows-[300px_300px] lg:grid-cols-[535px_300px_300px] lg:grid-rows-1 gap-4 lg:px-12">
+          {
+            cardInfo.map((item) => (
+              <div key={item.id} className={`overflow-hidden rounded-2xl flex items-center justify-center relative lg:h-[350px] ${item.id === 1 ? 'bg-[#004D43] md:col-span-2 lg:col-span-1' : 'bg-[#212121]'}`}>
+                <img className='w-24 lg:w-32' src={item.img} alt="item-img" />
+                <p className={`absolute bottom-5 left-5 uppercase border rounded-full px-4 py-1 ${item.id === 1 ? 'text-[#CdEA68] border-[#CdEA68]' : 'text-[#D6D6D6] border-[#D6D6D6]'}`}>
+                  {item.p}
+                </p>
+              </div>
+            ))
+          }
+        </div>
       </div>
     </section>
   );
